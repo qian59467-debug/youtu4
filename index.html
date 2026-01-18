@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中矿集团铊矿采矿系统 - 项目详情</title>
+    <style>
+        /* --- 全局样式变量 --- */
+        :root {
+            --bg-color: #0b0e14; /* 深邃矿山黑 */
+            --card-bg: #151a23;
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+            --accent-color: #06b6d4; /* 科技蓝/青色 */
+            --accent-hover: #22d3ee;
+            --border-color: #2d3748;
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-family);
+            line-height: 1.8; /* 增加行高，提升阅读体验 */
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: 0.3s;
+        }
+
+        /* --- 导航栏 --- */
+        .nav-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1rem 2rem;
+            background: rgba(11, 14, 20, 0.85);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+        }
+
+        .back-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            color: var(--accent-color);
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+
+        .back-btn:hover {
+            color: var(--accent-hover);
+            transform: translateX(-5px);
+        }
+
+        /* --- 通用容器 --- */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        section {
+            margin-bottom: 8rem; /* 增加板块间距 */
+        }
+
+        h1, h2, h3, h4 {
+            color: #fff;
+            margin-bottom: 1.5rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            border-left: 4px solid var(--accent-color);
+            padding-left: 1.2rem;
+            margin-bottom: 2.5rem;
+            letter-spacing: -0.5px;
+        }
+        
+        h3 {
+            font-size: 1.3rem;
+            color: var(--text-main);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        h3::before {
+            content: '';
+            display: block;
+            width: 6px;
+            height: 6px;
+            background: var(--accent-color);
+            border-radius: 50%;
+        }
+
+        p {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+            text-align: justify;
+        }
+        
+        ul {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+        
+        ul li {
+            color: var(--text-muted);
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        ul li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+        }
+
+        /* --- Hero 区域 --- */
+        .hero {
+            padding-top: 140px;
+            padding-bottom: 80px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff 10%, var(--accent-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+            letter-spacing: -1px;
+        }
+
+        .hero .subtitle {
+            font-size: 1.35rem;
+            max-width: 760px;
+            margin: 0 auto 2.5rem;
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+
+        .tags {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: rgba(6, 182, 212, 0.08);
+            color: var(--accent-color);
+            padding: 0.6rem 1.2rem;
+            border-radius: 100px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 1px solid rgba(6, 182, 212, 0.2);
+            transition: 0.3s;
+        }
+        
+        .tag:hover {
+            background: rgba(6, 182, 212, 0.15);
+            transform: translateY(-2px);
+        }
+
+        /* --- 图片占位符样式 (重点) --- */
+        .img-placeholder-wrapper {
+            width: 100%;
+            background: linear-gradient(180deg, rgba(21,26,35,0.5) 0%, rgba(21,26,35,1) 100%);
+            border: 1px dashed var(--border-color);
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 5rem 2rem;
+            margin: 2.5rem 0;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .img-placeholder-wrapper:hover {
+            border-color: var(--accent-color);
+            background: rgba(21, 26, 35, 0.8);
+            box-shadow: 0 10px 40px -10px rgba(6, 182, 212, 0.1);
+        }
+
+        .placeholder-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.4;
+            transition: 0.3s;
+        }
+        
+        .img-placeholder-wrapper:hover .placeholder-icon {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        .file-name {
+            font-family: 'Fira Code', monospace;
+            background: rgba(0,0,0,0.6);
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            color: #fca5a5; 
+            font-size: 0.9rem;
+            border: 1px solid #333;
+        }
+
+        .img-tip {
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        /* --- 内容网格 --- */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            transition: 0.3s;
+            height: 100%;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(6, 182, 212, 0.3);
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
+        }
+
+        .card h3 {
+            font-size: 1.25rem;
+            color: #fff;
+            margin-bottom: 1.2rem;
+        }
+        
+        .card h3::before {
+             background: transparent; /* 移除卡片内的圆点 */
+             width: 0;
+             margin: 0;
+        }
+
+        .role-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        /* --- 交互演示窗口 (Browser Mockup) --- */
+        .browser-mockup {
+            background: #1e293b;
+            border-radius: 16px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            margin-top: 2rem;
+        }
+
+        .browser-bar {
+            background: #0f172a;
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #334155;
+        }
+        .dot.red { background-color: #ef4444; }
+        .dot.yellow { background-color: #f59e0b; }
+        .dot.green { background-color: #10b981; }
+
+        .url-bar {
+            background: #1e293b;
+            flex-grow: 1;
+            padding: 0.6rem 1.5rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-family: monospace;
+            text-align: center;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .iframe-container {
+            width: 100%;
+            height: 700px; /* 增加高度展示更多细节 */
+            position: relative;
+            background: #000;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .open-new-tab {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+            color: var(--accent-color);
+            font-size: 0.95rem;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            background: rgba(6, 182, 212, 0.1);
+        }
+        
+        .open-new-tab:hover {
+            background: rgba(6, 182, 212, 0.2);
+        }
+
+        /* --- 底部 --- */
+        footer {
+            text-align: center;
+            padding: 6rem 0;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+            margin-top: 6rem;
+            font-size: 0.9rem;
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.2rem; }
+            .role-grid { grid-template-columns: 1fr; gap: 1rem; }
+            .iframe-container { height: 450px; }
+            h2 { font-size: 1.6rem; padding-left: 1rem; }
+            .card { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. 顶部导航 -->
+    <header class="nav-header">
+        <div class="container" style="margin:0; padding:0;">
+            <!-- 这里通常指向您的作品集首页，如 index.html -->
+            <a href="index.html" class="back-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                返回作品集首页
+            </a>
+        </div>
+    </header>
+
+    <!-- 2. Hero 区域 -->
+    <section class="hero">
+        <div class="container">
+            <h1>中矿集团铊矿采矿系统</h1>
+            <p class="subtitle">基于 WebGL 技术的矿山数字孪生底座。将晦涩的井下传感器数据转化为直观的 3D 可视化界面，打造“透明矿山”调度体验。</p>
+            <div class="tags">
+                <span class="tag">B端/G端设计</span>
+                <span class="tag">数据可视化</span>
+                <span class="tag">WebGL 数字孪生</span>
+                <span class="tag">工业互联网</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 主体内容 -->
+    <main class="container">
+
+        <!-- 3. 项目背景与目标 -->
+        <section>
+            <h2>01. 项目背景与目标</h2>
+            <div class="info-grid">
+                <div class="card">
+                    <h3>🏛 项目背景 (Context)</h3>
+                    <p>随着工业 4.0 的推进，传统矿山面临数字化转型的紧迫需求。原有的监控系统基于 2D 表格和离散的传感器数值，信息呈现割裂。在井下发生突发状况（如瓦斯浓度异常、透水预警）时，调度员需要在大脑中将二维数据还原为三维空间位置，这一过程极易出错且耗时，严重影响了应急指挥的响应速度。</p>
+                </div>
+                <div class="card">
+                    <h3>🎯 设计目标 (Goals)</h3>
+                    <p>我们的核心目标是**“降低安全监控的认知负荷”**。通过构建高精度的数字孪生底座，将地质模型、设备状态、人员定位进行 3D 融合，实现“所见即所得”的监控体验。将传统的“人找数据”模式转变为“数据找人”，确保在危机时刻，关键信息能第一时间被感知和理解，提升调度决策效率。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. 角色职责与设计流程 -->
+        <section>
+            <h2>02. 角色职责与设计流程</h2>
+            
+            <div class="role-grid">
+                <div>
+                    <h4 style="color:var(--accent-color)">我的角色</h4>
+                    <p><strong>Lead UX/UI Designer</strong></p>
+                    <ul style="font-size:0.95rem; margin-top:1rem;">
+                        <li>用户调研与需求分析</li>
+                        <li>3D 交互逻辑定义</li>
+                        <li>UI 设计系统搭建</li>
+                        <li>开发落地走查</li>
+                    </ul>
+                    <h4 style="color:var(--accent-color); margin-top:2rem;">使用工具</h4>
+                    <p style="font-size:0.95rem;">Figma, Blender, WebGL (Three.js), After Effects</p>
+                </div>
+                <div>
+                    <h4 style="color:var(--accent-color)">设计流程 (Design Thinking)</h4>
+                    <p>项目遵循双钻模型（Double Diamond）进行迭代：</p>
+                    <ul>
+                        <li><strong>发现 (Discovery)：</strong> 深入矿区一线，对调度员、安监员进行影子观察（Shadowing），理解真实的作业环境与噪音干扰。</li>
+                        <li><strong>定义 (Define)：</strong> 梳理出“实时性”、“空间感”、“告警层级”为三大核心体验原则。</li>
+                        <li><strong>构思 (Ideate)：</strong> 通过草图绘制多种 HUD 布局方案，探索 3D 场景与 2D 数据面板的最佳联动方式。</li>
+                        <li><strong>原型与测试 (Prototype & Test)：</strong> 输出高保真交互原型，邀请矿长进行可用性测试，验证 3D 操作的学习成本。</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- 替换处：使用 iframe srcdoc 嵌入您提供的代码，确保 Tailwind CSS 样式不影响主页面 -->
+            <div style="width: 100%; height: 950px; border: none; border-radius: 12px; overflow: hidden; margin: 2.5rem 0;">
+                <iframe style="width: 100%; height: 100%; border: none;" srcdoc='<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>案例展示：矿区智能作业系统</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Noto Sans SC -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: &#39;Noto Sans SC&#39;, sans-serif;
+            background-color: #0f172a; /* Slate 900 */
+            color: #e2e8f0; /* Slate 200 */
+        }
+        
+        /* 自定义滚动条 */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155; 
+            border-radius: 4px;
+        }
+
+        /* 科技感装饰线 */
+        .tech-border {
+            position: relative;
+        }
+        .tech-border::after {
+            content: &#39;&#39;;
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 20px;
+            height: 20px;
+            border-top: 2px solid #38bdf8;
+            border-right: 2px solid #38bdf8;
+        }
+
+        /* 磨砂玻璃效果 */
+        .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4 md:p-8 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+
+    <!-- 主容器 -->
+    <div class="max-w-7xl w-full bg-slate-900 rounded-2xl shadow-2xl overflow-hidden border border-slate-700 flex flex-col lg:flex-row min-h-[800px]">
+        
+        <!-- 左侧：概览区域 (1/3) -->
+        <div class="w-full lg:w-1/3 p-8 bg-slate-800/50 border-r border-slate-700 flex flex-col relative">
+            <!-- 装饰性HUD元素 -->
+            <div class="absolute top-6 right-6 opacity-30">
+                <i class="fa-solid fa-crosshairs text-cyan-400 text-2xl"></i>
+            </div>
+
+            <!-- Header -->
+            <div class="mb-8">
+                <span class="inline-block px-3 py-1 text-xs font-bold tracking-wider text-cyan-400 uppercase bg-cyan-900/30 rounded-full border border-cyan-500/30 mb-3">
+                    UX/UI Designer
+                </span>
+                <h1 class="text-3xl md:text-4xl font-bold text-white leading-tight">
+                    矿区智能<br>作业系统
+                </h1>
+                <p class="text-slate-400 mt-2 text-sm flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                    双钻模型设计流程实录
+                </p>
+            </div>
+
+            <!-- Hero Image -->
+            <div class="relative w-full h-64 rounded-xl overflow-hidden mb-8 shadow-lg group">
+                <!-- 更新了主图：更清晰的露天矿坑全景 -->
+                <img src="https://images.unsplash.com/photo-1516937941344-00b4e0337589?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                     alt="矿区作业现场" 
+                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90">
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent"></div>
+                <div class="absolute bottom-4 left-4 text-white font-medium text-sm">
+                    <i class="fa-solid fa-location-dot mr-2 text-cyan-400"></i>露天矿区现场
+                </div>
+            </div>
+
+            <!-- 阶段概览列表 -->
+            <div class="mt-auto space-y-4">
+                <h3 class="text-sm uppercase tracking-widest text-slate-500 font-bold mb-4">Phase Overview</h3>
+                
+                <div class="flex items-center gap-4 group cursor-default">
+                    <div class="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center text-blue-400 border border-blue-500/30 group-hover:bg-blue-500 group-hover:text-white transition-colors">
+                        <i class="fa-regular fa-gem"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-slate-200">发现 Discovery</h4>
+                        <p class="text-xs text-slate-400">影子观察，理解一线作业</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-4 group cursor-default">
+                    <div class="w-10 h-10 rounded-lg bg-amber-500/20 flex items-center justify-center text-amber-400 border border-amber-500/30 group-hover:bg-amber-500 group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-filter"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-slate-200">定义 Define</h4>
+                        <p class="text-xs text-slate-400">梳理三大核心体验原则</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-4 group cursor-default">
+                    <div class="w-10 h-10 rounded-lg bg-emerald-500/20 flex items-center justify-center text-emerald-400 border border-emerald-500/30 group-hover:bg-emerald-500 group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-pen-ruler"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-slate-200">构思 Ideate</h4>
+                        <p class="text-xs text-slate-400">草图绘制，探索HUD布局</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-4 group cursor-default">
+                    <div class="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center text-purple-400 border border-purple-500/30 group-hover:bg-purple-500 group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-mobile-screen"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-slate-200">原型与测试 Prototype</h4>
+                        <p class="text-xs text-slate-400">高保真原型，可用性测试</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 右侧：详细流程区域 (2/3) -->
+        <div class="w-full lg:w-2/3 p-8 bg-slate-900 relative">
+            <!-- 顶部装饰线 -->
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-amber-500 to-purple-500 opacity-50"></div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 h-full content-center">
+                
+                <!-- 卡片 1: 发现 -->
+                <div class="glass-card rounded-xl p-5 tech-border hover:-translate-y-1 transition-transform duration-300">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-blue-400 font-bold text-sm tracking-wider">01. DISCOVER</span>
+                        <i class="fa-solid fa-arrow-right-long text-slate-600"></i>
+                    </div>
+                    <div class="h-40 w-full bg-slate-800 rounded-lg mb-4 overflow-hidden relative">
+                        <!-- 更新了配图：工程师在工业现场查看图纸/设备，更符合“一线调研” -->
+                        <img src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover opacity-80" alt="User Research in Field">
+                        <div class="absolute bottom-2 right-2 bg-black/60 px-2 py-1 rounded text-xs text-white">现场调研</div>
+                    </div>
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        深入矿区一线，观察调度员、安监员作业，理解真实环境中的噪音干扰与操作痛点。
+                    </p>
+                </div>
+
+                <!-- 卡片 2: 定义 -->
+                <div class="glass-card rounded-xl p-5 hover:-translate-y-1 transition-transform duration-300">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-amber-400 font-bold text-sm tracking-wider">02. DEFINE</span>
+                        <i class="fa-solid fa-arrow-right-long text-slate-600"></i>
+                    </div>
+                    <div class="h-40 w-full bg-slate-800 rounded-lg mb-4 overflow-hidden relative">
+                         <!-- Placeholder Image -->
+                        <img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover opacity-80" alt="Affinity Diagram">
+                        <div class="absolute bottom-2 right-2 bg-black/60 px-2 py-1 rounded text-xs text-white">需求梳理</div>
+                    </div>
+                    <div class="text-slate-300 text-sm">
+                        <p class="mb-2">基于亲和图梳理出核心体验原则：</p>
+                        <ul class="list-none space-y-1 text-xs text-slate-400">
+                            <li class="flex items-center"><i class="fa-solid fa-check text-amber-500 mr-2"></i> 实时性 (Real-time)</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-amber-500 mr-2"></i> 空间感 (Spatial)</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-amber-500 mr-2"></i> 告警层级 (Alert Hierarchy)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 卡片 3: 构思 -->
+                <div class="glass-card rounded-xl p-5 hover:-translate-y-1 transition-transform duration-300">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-emerald-400 font-bold text-sm tracking-wider">03. IDEATE</span>
+                        <i class="fa-solid fa-arrow-right-long text-slate-600"></i>
+                    </div>
+                    <div class="h-40 w-full bg-slate-800 rounded-lg mb-4 overflow-hidden relative">
+                         <!-- Placeholder Image -->
+                        <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover opacity-80" alt="Wireframing">
+                        <div class="absolute bottom-2 right-2 bg-black/60 px-2 py-1 rounded text-xs text-white">线框绘制</div>
+                    </div>
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        绘制大量草图，探索 3D 数字孪生场景与 2D 数据浮层面板的联动交互方案。
+                    </p>
+                </div>
+
+                <!-- 卡片 4: 测试 -->
+                <div class="glass-card rounded-xl p-5 tech-border hover:-translate-y-1 transition-transform duration-300">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-purple-400 font-bold text-sm tracking-wider">04. PROTOTYPE & TEST</span>
+                        <i class="fa-solid fa-check-circle text-purple-500/50"></i>
+                    </div>
+                    <div class="h-40 w-full bg-slate-800 rounded-lg mb-4 overflow-hidden relative">
+                         <!-- Placeholder Image -->
+                        <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover opacity-80" alt="Usability Testing">
+                        <div class="absolute bottom-2 right-2 bg-black/60 px-2 py-1 rounded text-xs text-white">可用性测试</div>
+                    </div>
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        产出高保真交互原型，并邀请矿长进行现场可用性测试，验证操作流程的学习成本。
+                    </p>
+                </div>
+
+            </div>
+            
+            <!-- 底部页码/装饰 -->
+            <div class="absolute bottom-4 right-8 text-slate-700 font-mono text-xs">
+                CASE STUDY // 2023 // PAGE 01
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>'></iframe>
+            </div>
+
+        </section>
+
+        <!-- 5. 用户与需求调研 -->
+        <section>
+            <h2>03. 用户与需求调研</h2>
+            <p>通过对 12 位关键利益相关者的深度访谈，我们构建了以下两个核心用户画像，并针对其痛点提出了针对性的设计策略。</p>
+            
+            <div class="info-grid">
+                <div class="card">
+                    <h3>用户 A：矿山调度员 (The Dispatcher)</h3>
+                    <p><strong>场景：</strong> 7x24 小时在昏暗的控制大厅盯着 6 个显示屏。</p>
+                    <p><strong>痛点：</strong> “屏幕上的数字太多了，每次报警我都要去查设备编号对应的位置，太慢了。”</p>
+                    <p><strong>策略：</strong> <strong>异常数据视觉强化。</strong> 正常状态下数据弱化显示，异常时通过颜色脉冲+3D 定位自动跳转，减少无关信息的干扰。</p>
+                </div>
+                <div class="card">
+                    <h3>用户 B：安监部主任 (Safety Officer)</h3>
+                    <p><strong>场景：</strong> 负责每日的安全巡检复盘和事故回溯。</p>
+                    <p><strong>痛点：</strong> “很难看清井下巷道的拓扑结构，不知道哪个传感器在哪个路口。”</p>
+                    <p><strong>策略：</strong> <strong>空间透明化。</strong> 提供“透视模式”和“漫游模式”，允许用户像玩游戏一样在井下漫游，直观查看设备分布。</p>
+                </div>
+            </div>
+
+            <!-- 用户画像占位符 -->
+            <div class="img-placeholder-wrapper">
+                <div class="placeholder-icon">👥</div>
+                <div class="file-name">images/user_persona_card.png</div>
+                <div class="img-tip">用户画像卡片</div>
+            </div>
+
+            <!-- 体验地图占位符 -->
+            <div class="img-placeholder-wrapper">
+                <div class="placeholder-icon">🗺️</div>
+                <div class="file-name">images/user_journey_map_mining.png</div>
+                <div class="img-tip">用户体验地图</div>
+            </div>
+        </section>
+
+        <!-- 6. 产品结构图 -->
+        <section>
+            <h2>04. 产品结构图</h2>
+            <p>基于业务逻辑，我们将系统划分为四大核心模块：全景监控（态势感知）、设备管理（资产运维）、人员定位（安全考勤）与告警中心（应急响应）。</p>
+            
+            <div class="img-placeholder-wrapper">
+                <div class="placeholder-icon">🏗️</div>
+                <div class="file-name">images/ia_structure_chart.png</div>
+                <div class="img-tip">产品信息架构图 (IA Structure)</div>
+            </div>
+        </section>
+
+        <!-- 7. 交互设计方案展示 (重点) -->
+        <section>
+            <h2>05. 交互设计方案展示</h2>
+            <div class="role-grid" style="grid-template-columns: 1fr;">
+                <div>
+                    <p>这是系统的核心——基于 WebGL 的 3D 可视化交互模组。为了解决“操作复杂”的问题，我们引入了游戏化的交互逻辑：</p>
+                    <ul style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                        <li><strong>平滑缩放与旋转：</strong> 支持鼠标滚轮无级缩放，右键旋转视角，让用户能从宏观矿区无缝切换到微观设备。</li>
+                        <li><strong>智能聚焦 (Auto-Focus)：</strong> 点击任意报警列表项，视角自动飞入并聚焦到井下具体的故障设备，无需手动寻找。</li>
+                        <li><strong>悬停交互 (Hover Feedback)：</strong> 鼠标悬停在巷道或设备上时，即时弹出 HUD 信息卡片，展示实时数值。</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 浏览器样式的预览窗口 -->
+            <div class="browser-mockup">
+                <div class="browser-bar">
+                    <div class="dots">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                    </div>
+                    <div class="url-bar">https://youtuweb1.netlify.app/ (Demo Preview)</div>
+                </div>
+                <!-- 交互演示占位符 -->
+                <div class="iframe-container" style="display: flex; flex-direction: column; align-items: center; justify-content: center; background: #000;">
+                    <div class="placeholder-icon" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;">🖥️</div>
+                    <div class="file-name">images/interaction_preview_demo.gif</div>
+                    <div class="img-tip" style="margin-top: 1rem;">建议上传 GIF 动图或视频封面</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. UI 组件展示 -->
+        <section>
+            <h2>06. UI 组件展示</h2>
+            <p>考虑到调度中心大屏常年处于暗光环境，我们定义了<strong>“工业暗黑 (Industrial Dark)”</strong>的设计语言。这不仅是为了酷炫，更是为了降低长时间注视屏幕带来的视觉疲劳。</p>
+
+            <div class="info-grid">
+                <div class="card">
+                    <h3>🎨 色彩策略</h3>
+                    <p>背景采用深蓝灰（#0B0E14）以消隐边框感；关键数据采用高亮的<strong>青色（Cyan）</strong>作为主色，代表科技与冷静；<strong>警示红（Alert Red）</strong>仅用于异常状态，确保视觉焦点的唯一性。</p>
+                </div>
+                <div class="card">
+                    <h3>🧩 HUD 组件库</h3>
+                    <p>开发了一套基于原子设计理论的 HUD 组件库，包含带有科技感边框的容器、动态呼吸效果的指示灯、以及 ECharts 定制的数据图表，保证了全站视觉的一致性。</p>
+                </div>
+            </div>
+
+            <!-- 规范占位符 -->
+            <div class="img-placeholder-wrapper">
+                <div class="placeholder-icon">🎨</div>
+                <div class="file-name">images/ui_design_system_colors_fonts.png</div>
+                <div class="img-tip">UI 设计规范</div>
+            </div>
+
+            <!-- 组件库占位符 -->
+            <div class="img-placeholder-wrapper">
+                <div class="placeholder-icon">🧩</div>
+                <div class="file-name">images/ui_component_library_hud.png</div>
+                <div class="img-tip">UI 组件库展示</div>
+            </div>
+        </section>
+
+        <!-- 9. 设计成果与影响 -->
+        <section>
+            <h2>07. 设计成果与影响</h2>
+            <p>该系统上线后，在中矿集团下属的三个试点矿山投入使用，带来了显著的效能提升：</p>
+            
+            <div class="info-grid">
+                <div class="card" style="text-align: center;">
+                    <h3 style="font-size: 2.5rem; color: var(--accent-color); margin-bottom: 0.5rem;">40%</h3>
+                    <p><strong>应急响应提速</strong><br>从发现警报到下达指令的时间大幅缩短</p>
+                </div>
+                <div class="card" style="text-align: center;">
+                    <h3 style="font-size: 2.5rem; color: var(--accent-color); margin-bottom: 0.5rem;">30%</h3>
+                    <p><strong>培训周期缩短</strong><br>新员工通过 3D 可视化更快熟悉井下环境</p>
+                </div>
+                <div class="card" style="text-align: center;">
+                    <h3 style="font-size: 2.5rem; color: var(--accent-color); margin-bottom: 0.5rem;">0</h3>
+                    <p><strong>漏报误报率</strong><br>多源数据融合算法消除了单一传感器的误报</p>
+                </div>
+            </div>
+
+            <!-- 最终效果图占位符 -->
+            <div class="img-placeholder-wrapper">
+                <div class="placeholder-icon">💻</div>
+                <div class="file-name">images/final_dashboard_mockup_high_fidelity.png</div>
+                <div class="img-tip">最终呈现：高保真 Mockup</div>
+            </div>
+        </section>
+
+        <!-- 10. 总结与反思 -->
+        <section>
+            <h2>08. 总结与反思</h2>
+            <div class="card">
+                <h3>💡 项目复盘</h3>
+                <p><strong>技术与美学的平衡：</strong> 在项目初期，我们为了追求极致的视觉效果，使用了过高面数的 3D 模型，导致在 Web 端加载缓慢。后期我们与开发团队紧密合作，通过 Draco 压缩和 LOD（多细节层次）技术，在不损失核心视觉体验的前提下，将模型体积压缩了 70%。</p>
+                <p><strong>未来的可能性：</strong> 目前的系统主要解决了“实时监控”的问题。下一阶段，我希望能引入 AI 预测模块，利用历史数据对潜在风险进行预判，从“被动响应”转向“主动防御”，进一步挖掘 UX 设计在 B 端业务中的深层价值。</p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2024 UI/UX Portfolio. All Rights Reserved. | Designed & Coded with ❤️</p>
+    </footer>
+
+</body>
+</html>
